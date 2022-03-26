@@ -1,17 +1,8 @@
 import sqlite3
-import pymysql.cursors   
 
 class Database:
-    def __init__(self):
-        # self.connection = sqlite3.connect(db_file)
-        self.connection = pymysql.connect(host='127.0.0.1',
-                             user='Flashlight',
-                             password='qwert123',                             
-                             db='telegram_test',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor) 
-        print ("connect successful!!") 
-
+    def __init__(self,db_file):
+        self.connection = sqlite3.connect(db_file)
         self.cursor = self.connection.cursor()
 
     def create_tables(self):
@@ -134,7 +125,5 @@ class Database:
             self.cursor.execute('DROP TABLE stats')
             self.connection.commit()
 
-# db = Database('data/bot.db')    
-#
-db = Database()   
+db = Database('data/bot.db')   
             
