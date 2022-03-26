@@ -125,5 +125,5 @@ class Database:
             self.cursor.execute('DROP TABLE stats')
             self.connection.commit()
 
-db = Database('data/bot.db')   
+db = Database('resources/telegram_bot.db')   
             
