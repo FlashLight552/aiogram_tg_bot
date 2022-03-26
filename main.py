@@ -5,7 +5,7 @@ import asyncio
 from create_bot import dp
 from handler import main, spam, youtube, admin, get_feedback
 from utils.scheduled import scheduled_last_video, scheduled_popular_video
-from utils.db_new import db 
+from utils.db_new import db
 from data.config import owner
 
 
