@@ -5,8 +5,9 @@ def connect():
     sql = db.cursor()
     return(db,sql) 
 
-# Управление подписчиками
-def subscribers(id,first_name,username, country=None, city=None, geonameid=None, latitude=None, longitude=None ):
+# Создание всех таблиц
+
+def table_create():
     db,sql = connect()
 
     sql.execute("""CREATE TABLE IF NOT EXISTS subscribers (
@@ -20,32 +21,40 @@ def subscribers(id,first_name,username, country=None, city=None, geonameid=None,
         longitude TEXT
     ) """)
 
-    # sql.execute(f"SELECT id FROM subscribers WHERE id = (?) AND geonameid != (?)", (id,'None',))     #'{id}'
-    # if sql.fetchone() is None:
+    sql.execute("""CREATE TABLE IF NOT EXISTS youtube_video (
+        url TEXT PRIMARY KEY,
+        title TEXT,
+        type TEXT,
+        date TEXT
+    ) """)
+
+    sql.execute("""CREATE TABLE IF NOT EXISTS admins (
+        id INT PRIMARY KEY,
+        role TEXT,
+        memo TEXT
+    ) """)
+
+    sql.execute("""CREATE TABLE IF NOT EXISTS feedback (
+        id INT PRIMARY KEY,
+        review TEXT
+    ) """)
+
+    db.commit()
+    db.close()
+    return()
+
+
+
+
+# Управление подписчиками
+def subscribers(id,first_name,username, country=None, city=None, geonameid=None, latitude=None, longitude=None ):
+    db,sql = connect()
     sql.execute("INSERT OR REPLACE INTO subscribers VALUES (?, ?, ?, ?, ?, ?, ?, ?) ", \
         (id, first_name, username,country,city,geonameid,latitude,longitude,))
 
     db.commit()
     db.close()
     return()
-
-def subscribers_create_table():
-    db,sql = connect()
-
-    sql.execute("""CREATE TABLE IF NOT EXISTS subscribers (
-        id INT PRIMARY KEY,
-        first_name TEXT,
-        username TEXT,
-        country TEXT,
-        city TEXT,
-        geonameid INT,
-        latitude TEXT,
-        longitude TEXT
-    ) """)
-    db.commit()
-    db.close()
-
-
 
 def subscribers_show_all():
     db,sql = connect()
@@ -68,18 +77,25 @@ def subscribers_search_by_id(id):
     db.close()
     return(result)     
 
+# feedback
+def feedback(id, review):
+    db,sql = connect()
+    sql.execute("INSERT OR REPLACE INTO feedback VALUES (?,?)", (id, review, ))
+    
+    db.commit()
+    db.close()
+    return()
 
+def feedback_show_all():
+    db,sql = connect()
+    sql.execute("SELECT * FROM feedback")
+    result = sql.fetchall()
+    return(result)  
+    db.close()
 
 # Добавление последних видео в бд
 def youtube_video(url, title, type, data):
     db,sql = connect()
-
-    sql.execute("""CREATE TABLE IF NOT EXISTS youtube_video (
-        url TEXT PRIMARY KEY,
-        title TEXT,
-        type TEXT,
-        date TEXT
-    ) """)
 
     sql.execute("INSERT OR REPLACE INTO youtube_video VALUES (?,?,?,?)", (url, title, type, data, ))
     

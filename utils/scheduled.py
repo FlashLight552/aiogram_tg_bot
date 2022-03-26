@@ -7,7 +7,8 @@ from time import sleep
 
 from utils.youtube import youtube_last, youtube_popular
 from data.config import yt_channel_id
-from utils.db import youtube_video, youtube_video_search_url, subscribers_id_list
+# from utils.db import youtube_video, youtube_video_search_url, subscribers_id_list
+from utils.db_new import db
 from data.config import yt_last_video_count, yt_popular_video_count
 from create_bot import telegram_bot
 
@@ -25,18 +26,21 @@ async def scheduled_last_video(wait_for):
             today = datetime.now()
             data = today.strftime("%d/%m/%Y %H:%M:%S:%f")
 
-            check_new_video = youtube_video_search_url(url[i])
+            check_new_video = db.youtube_video_search_url(url[i])
             if not check_new_video:
                 # print('Новое видео!')
                 # print(url[i], title[i])
                 hyperlink = '<a href="'+url[i]+'">'+title[i]+'</a>'
                 # print(hyperlink)
-                
-                sub_list = subscribers_id_list()
-                for item in sub_list:
-                    await telegram_bot.send_message(item[0], 'Новое видео!\n'+hyperlink, parse_mode='HTML')   
 
-            youtube_video(url[i], title[i],'last_video', str(data))
+                sub_list = db.sub_spam_allow('1')
+                # sub_list = db.show_all_from_table('subscribers')
+                for item in sub_list:
+                    try:
+                        await telegram_bot.send_message(item[0], 'Новое видео!\n'+hyperlink, parse_mode='HTML')   
+                    except: 
+                        db.update_sub(item[0],'0','0')
+            db.youtube_video_to_db(url[i], title[i],'last_video', str(data))
         # print('Работаю!')      
     except:
         pass 
@@ -49,7 +53,7 @@ async def scheduled_popular_video(wait_for):
         for i in reversed(range(0, len(url))):
             today = datetime.now()
             data = today.strftime("%d/%m/%Y %H:%M:%S:%f")
-            youtube_video(url[i], html.unescape(title[i]),'popular_video', str(data))
+            db.youtube_video_to_db(url[i], html.unescape(title[i]),'popular_video', str(data))
             # print(url[i], html.unescape(title[i]))
         await asyncio.sleep(wait_for)    
     except:

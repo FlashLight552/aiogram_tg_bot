@@ -8,8 +8,8 @@ import json
 from create_bot import telegram_bot
 # from create_bot import dp
 from utils.youtube import *
-from utils.db import *
-from keys import adm_btn
+from utils.db_new import db
+from keys import adm_btn, adm_btn_ch
 
 
 # Класс состояний (FSM)
@@ -21,91 +21,129 @@ class Form(StatesGroup):
 
 # Старт добавление админа (FSM)
 async def set_admin(message: types.Message):
-    admins = adm_list()
+    admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
                 if item[1] == 'owner' or item[1] == 'Администратор':
                     await message.answer('Введите ID пользователя \nДля отмены /cancel')
                     await Form.id_user.set() # Устанавливаем состояние
+                    db.stats(message['from']['id'], message['text'], message['date'])
 
 # Ввод ид юзера (FSM)
 async def id_user(message: types.Message, state: FSMContext):
     async with state.proxy() as proxy: # Устанавливаем состояние ожидания
         proxy['id_user'] = message.text
     await Form.role.set() # Переход состояния
-    await message.answer('Роль пользователя.', reply_markup= adm_btn)
-
+    await message.answer('Роль пользователя.', reply_markup=adm_btn_ch)
+    db.stats(message['from']['id'], message['text'], message['date'])
 # Выбор роли (FSM)
 async def role (message: types.Message, state: FSMContext):
     async with state.proxy() as proxy: # Устанавливаем состояние ожидания
         proxy['role'] = message.text
-    await message.answer('Введите коментарий для пользователя')
+    await message.answer('Введите коментарий для пользователя', reply_markup=adm_btn)
     await Form.memo.set()
-
+    db.stats(message['from']['id'], message['text'], message['date'])
 # Коментарий для стафа (FSM)
 async def memo (message: types.Message, state: FSMContext):
     async with state.proxy() as proxy: # Устанавливаем состояние ожидания
         proxy['memo'] = message.text
     await message.answer('Готово')
     await state.finish()   
-    admins(proxy['id_user'], proxy['role'], proxy['memo'])
-
+    db.admins_to_db(proxy['id_user'], proxy['role'], proxy['memo'])
+    db.stats(message['from']['id'], message['text'], message['date'])
 
 
 # Список админов
 async def admins_list(message: types.Message):
-    admins = adm_list()
+    admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
                 with open('export/adm_list.json', 'w', encoding='utf-8') as f:
                     f.write(json.dumps(admins, ensure_ascii=False))
-                await message.answer_document(open('export\\adm_list.json', 'rb'))
+                await message.answer_document(open('export/adm_list.json', 'rb'))
+                db.stats(message['from']['id'], message['text'], message['date'])
 
 # Список подписчиков
 async def subscribers_list(message: types.Message):
-    admins = adm_list()
+    admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
-                subs = subscribers_show_all()
+                subs = db.show_all_from_table('subscribers')
                 with open('export/subs_list.json', 'w', encoding='utf-8') as f:
                     f.write(json.dumps(subs, ensure_ascii=False))
-                await message.answer_document(open('export\\subs_list.json', 'rb'))
+                await message.answer_document(open('export/subs_list.json', 'rb'))
+                db.stats(message['from']['id'], message['text'], message['date'])
 
+# Отзывы
+async def feedback_list(message: types.Message):
+    admins = db.show_all_from_table('admins')
+    if message.chat.type == 'private':
+        for item in admins:
+            if message['from']['id'] == item[0]:
+                feedback = db.show_all_from_table('feedback')        
+                with open('export/feedback_list.json', 'w', encoding='utf-8') as f:
+                    f.write(json.dumps(feedback, ensure_ascii=False))
+                await message.answer_document(open('export/feedback_list.json', 'rb'))                
+                db.stats(message['from']['id'], message['text'], message['date'])
 
+async def stats_list(message: types.Message):
+    admins = db.show_all_from_table('admins')
+    if message.chat.type == 'private':
+        for item in admins:
+            if message['from']['id'] == item[0]:
+                stats = db.show_all_from_table('stats')        
+                with open('export/stats_list.json', 'w', encoding='utf-8') as f:
+                    f.write(json.dumps(stats, ensure_ascii=False))
+                await message.answer_document(open('export/stats_list.json', 'rb'))                
+                db.stats(message['from']['id'], message['text'], message['date'])
+
+async def sub_active_list(message: types.Message):
+    admins = db.show_all_from_table('admins')
+    if message.chat.type == 'private':
+        for item in admins:
+            if message['from']['id'] == item[0]:
+                active_sub = db.show_all_from_table('active_sub')        
+                with open('export/active_sub.json', 'w', encoding='utf-8') as f:
+                    f.write(json.dumps(active_sub, ensure_ascii=False))
+                await message.answer_document(open('export/active_sub.json', 'rb'))                
+                db.stats(message['from']['id'], message['text'], message['date'])
 
 # Удалить админа (FSM)
 async def del_admin(message: types.Message):
-    admins = adm_list()
+    admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
                 if item[1] == 'owner' or item[1] == 'Администратор':
                     await message.answer('Введите ID для удаления \nДля отмены /cancel')
                     await Form.del_admin_id.set() # Устанавливаем состояние
+                    db.stats(message['from']['id'], message['text'], message['date'])
+
 # Удалить админа. Ввод ид (FSM)
 async def del_id_user(message: types.Message, state: FSMContext):
     async with state.proxy() as proxy: # Устанавливаем состояние ожидания
         proxy['id_user'] = message.text
     await state.finish() # Переход состояния
-    adm_del(proxy['id_user'])
+    db.adm_del_from_db(proxy['id_user'])
     await message.answer('Готово')
-
+    db.stats(message['from']['id'], message['text'], message['date'])
 
 # Получение ид тг юзера
 async def get_id_user(message: types.Message):
     if message.chat.type == 'private':
         await message.answer('Ваш ID: ' + str(message['from']['id']))
-
+        db.stats(message['from']['id'], message['text'], message['date'])
 
 async def get_adm_btn(message: types.Message):
-    admins = adm_list()
+    admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
                 await message.answer('Адм панель', reply_markup=adm_btn)
+                db.stats(message['from']['id'], message['text'], message['date'])
 
 def admin(dp: Dispatcher):
     # Начало
@@ -125,8 +163,19 @@ def admin(dp: Dispatcher):
     dp.register_message_handler(admins_list, Text(equals = 'Список адм', ignore_case = True))
     dp.register_message_handler(subscribers_list, commands=['sub_list'])
     dp.register_message_handler(subscribers_list, Text(equals = 'Список подсписчиков', ignore_case = True))
+    # Отзывы
+    dp.register_message_handler(feedback_list, commands=['feedback_list'])
+    dp.register_message_handler(feedback_list, Text(equals = 'Список отзывов', ignore_case = True))
+    # Статистика
+    dp.register_message_handler(stats_list, commands=['stats_list'])
+    dp.register_message_handler(stats_list, Text(equals = 'Статистика', ignore_case = True))
     # ид пользователя
     dp.register_message_handler(get_id_user, commands=['userid'])
     dp.register_message_handler(get_id_user, Text(equals = 'ID пользователя', ignore_case = True))
+
+    dp.register_message_handler(sub_active_list, commands=['sub_active_list'])
+    dp.register_message_handler(sub_active_list, Text(equals = 'Список активных', ignore_case = True))
+
+
     # Админ панель
     dp.register_message_handler(get_adm_btn, commands=['adm'])

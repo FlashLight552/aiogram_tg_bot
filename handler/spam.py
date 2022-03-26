@@ -12,7 +12,7 @@ from create_bot import telegram_bot
 # from create_bot import dp
 # from data.config import yt_channel_id, owner
 from utils.youtube import *
-from utils.db import subscribers_id_list, adm_list
+from utils.db_new import db
 
 
 # Класс состояний
@@ -21,20 +21,22 @@ class Form(StatesGroup):
     confirm_spam = State()
     
 async def spam(message: types.Message):
-    admins = adm_list()
+    admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
                 await message.answer('Сообщение для рассылки \nДля отмены /cancel')
                 await Form.text_message.set() # Устанавливаем состояние
-
+                db.stats(message['from']['id'], message['text'], message['date'])
 
 async def cancel_spam(message: types.Message, state: FSMContext):
     current_stage = await state.get_state()
     if current_stage is None:
         return
     await state.finish() # Выключаем состояние
-    await message.answer('Охрана, отмена')  
+    await message.answer('Охрана, отмена')
+    db.stats(message['from']['id'], message['text'], message['date'])
+
 
 async def start_spam_photo(message: types.Message, state: FSMContext):
     async with state.proxy() as proxy: # Устанавливаем состояние ожидания
@@ -77,7 +79,7 @@ async def start_spam_voice(message: types.Message, state: FSMContext):
 async def confirm_send_spam (message: types.Message, state: FSMContext):
     async with state.proxy() as proxy:
         pass
-    sub_list = subscribers_id_list()
+    sub_list = db.show_all_from_table('subscribers')
     for item in sub_list:
         try:
             if proxy['type'] == 'send_document':

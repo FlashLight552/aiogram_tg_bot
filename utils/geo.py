@@ -71,7 +71,7 @@ def shabbat_times(latitude,longitude):
             shabbat.start_date = item['date'].split("T")[0].replace('-','/') 
             # print(shabbat.start, shabbat.start_date)
         if "Авдала:" in item['title']:
-            shabbat.stop = item['title']
+            shabbat.stop = item['title'].replace('Авдала:', 'Авдала (исход Шаббата):')
             shabbat.stop_date = item['date'].split("T")[0].replace('-','/')  
             # print(shabbat.stop, shabbat.stop)
     return(shabbat, geo)
