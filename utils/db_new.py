@@ -2,7 +2,7 @@ import sqlite3
 import pymysql.cursors   
 
 class Database:
-    def __init__(self, db_file):
+    def __init__(self):
         # self.connection = sqlite3.connect(db_file)
         self.connection = pymysql.connect(host='127.0.0.1',
                              user='Flashlight',
