@@ -18,31 +18,25 @@ async def send_welcome(message: types.Message):
         #await message.delete()
 
         photo = open(f'img/logo.png', 'rb')
-        welcome_text = 'Добро пожаловать! Брухим аБаим!\n' \
-                        'Наш бот постоянно пополняется новыми функциями. Например, Вы можете узнать время Шаббата, получить ссылки на уроки Торы и т.д.\n' \
-                        'Все, что доступно в данный момент Вы можете увидеть нажав на кнопку "меню".\n' \
-                        'Будем рады Вашему отзыву или пожеланиям - кнопка "Отзыв"'
         await message.answer_photo(photo, caption=welcome_text, reply_markup=main_btn)
         check_list = db.subscribers_search_by_id(message['from']['id'])
 
         if not check_list :
             # print ('Добавил новую, ', check_list)
             db.subscribers_to_db(message['from']['id'],message['from']['first_name'],message['from']['username'])
-            db.add_to_active_sub_table(message['from']['id'], '1', '0')
+            db.add_to_active_sub_table(message['from']['id'], '1', '0', '0')
         db.stats(message['from']['id'], message['text'], message['date'])
+        db.update_sub_on_start(message['from']['id'], '1')
 # О нас
 async def about_us(message: types.Message):
-    text = 'Колель Тора - сеть ежедневного изучения Торы в странах СНГ и Европы\n' \
-            'Мы работаем при еврейских общинах во множестве городов и онлайн.\n\n'   \
-            'Наши страницы в соцсетях\n'  \
-            'https://www.facebook.com/KolelToraRu/\n'  \
-            'https://www.youtube.com/KolelTora'  
-    await message.answer(text)
+ 
+    await message.answer(about_us_text)
     db.stats(message['from']['id'], message['text'], message['date'])
 
 
 async def subscribe_answer(message: types.Message):
     await message.answer('Хотите получать нашу рассылку с новыми видео и интересными новостями?', reply_markup=sub_inl_bnt)
+    await message.answer(annonce_sub_answer_text, reply_markup=annonce_sub_inl_bnt )
 
 async def sub(call: types.CallbackQuery):
     db.update_sub(call['from']['id'],'1','1')
@@ -51,6 +45,19 @@ async def sub(call: types.CallbackQuery):
 async def unsub(call: types.CallbackQuery):
     db.update_sub(call['from']['id'],'1','0')    
     await call.message.answer('Подписка отключена! Возвращайтесь к нам как можно скорее!')
+
+#  анонсы онлайн лекций
+
+async def ann_sub(call: types.CallbackQuery):
+    db.update_annonce_sub(call['from']['id'],'1','1')
+    await call.message.answer('Подписка оформлена, спасибо!')
+
+async def ann_unsub(call: types.CallbackQuery):
+    db.update_annonce_sub(call['from']['id'],'1','0')    
+    await call.message.answer('Подписка отключена! Возвращайтесь к нам как можно скорее!')
+
+
+
 
 
 # Проверка локации в бд и создание новой
@@ -145,4 +152,9 @@ def handlers_main(dp: Dispatcher):
 
     dp.register_callback_query_handler(sub, text='sub')
     dp.register_callback_query_handler(unsub, text='unsub')
+
+    
+
+    dp.register_callback_query_handler(ann_sub, text='ann_sub')
+    dp.register_callback_query_handler(ann_unsub, text='ann_unsub')
   

@@ -105,7 +105,8 @@ async def sub_active_list(message: types.Message):
     if message.chat.type == 'private':
         for item in admins:
             if message['from']['id'] == item[0]:
-                active_sub = db.show_all_from_table('active_sub')        
+                active_sub = db.show_all_from_table('active_sub')
+                active_sub.insert(0, '["ID","Активен","Подписка на видео","Подписка на анонсы"]')        
                 with open('export/active_sub.json', 'w', encoding='utf-8') as f:
                     f.write(json.dumps(active_sub, ensure_ascii=False))
                 await message.answer_document(open('export/active_sub.json', 'rb'))                

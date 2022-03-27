@@ -38,12 +38,10 @@ userid = KeyboardButton('ID пользователя')
 feed_list = KeyboardButton('Список отзывов')
 stats_list = KeyboardButton('Статистика')
 active_list = KeyboardButton('Список активных')
-spam = KeyboardButton('Рассылка')
+spam = KeyboardButton('Рассылка(всем)')
+ann_span = KeyboardButton('Рассылка(анонс)')
 
-
-
-
-adm_btn.add(set_admin,del_admin,admins_list,sub_list,userid,feed_list,stats_list, active_list, spam)
+adm_btn.add(set_admin,del_admin,admins_list,sub_list,userid,feed_list,stats_list, active_list, spam, ann_span)
 
 
 
@@ -60,5 +58,10 @@ sub = InlineKeyboardButton(text='Подписаться', callback_data='sub')
 unsub = InlineKeyboardButton(text='Отписаться ', callback_data='unsub')
 sub_inl_bnt.add(sub, unsub)
 
+# annonce sub inline
+annonce_sub_inl_bnt = InlineKeyboardMarkup()
+ann_sub = InlineKeyboardButton(text='Подписаться', callback_data='ann_sub')
+ann_unsub = InlineKeyboardButton(text='Отписаться ', callback_data='ann_unsub')
+annonce_sub_inl_bnt.add(ann_sub, ann_unsub)
 
 

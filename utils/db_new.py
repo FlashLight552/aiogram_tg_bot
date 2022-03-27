@@ -38,7 +38,8 @@ class Database:
             self.cursor.execute("""CREATE TABLE IF NOT EXISTS active_sub (
                     id INT PRIMARY KEY,
                     active TEXT,
-                    allow_spam TEXT
+                    allow_spam TEXT,
+                    allow_annonce_spam TEXT
                     ) """)
 
             self.cursor.execute("""CREATE TABLE IF NOT EXISTS stats (
@@ -54,20 +55,35 @@ class Database:
             self.cursor.execute("INSERT INTO stats  VALUES (?,?,?)", (id_user, command, date, ))
             self.connection.commit()
 
-    def add_to_active_sub_table(self, id_user, active, allow_spam):
+    def add_to_active_sub_table(self, id_user, active, allow_spam, allow_annonce_spam):
         with self.connection:
-            self.cursor.execute("INSERT INTO active_sub  VALUES (?,?,?)", (id_user, active, allow_spam, ))
+            self.cursor.execute("INSERT OR REPLACE INTO active_sub  VALUES (?,?,?,?)", (id_user, active, allow_spam, allow_annonce_spam))
             self.connection.commit()        
 
     def update_sub(self, id_user, active, allow_spam):
         with self.connection:
             self.cursor.execute("UPDATE active_sub SET active = (?), allow_spam = (?) WHERE id = (?)", (active,allow_spam, id_user, ))
-            self.connection.commit()        
+            self.connection.commit()
+
+    def update_sub_on_start(self, id_user, active):
+        with self.connection:
+            self.cursor.execute("UPDATE active_sub SET active = (?) WHERE id = (?)", (active, id_user, ))
+            self.connection.commit()            
+
+    def update_annonce_sub(self, id_user, active, allow_annonce_spam):
+        with self.connection:
+            self.cursor.execute("UPDATE active_sub SET active = (?), allow_annonce_spam = (?) WHERE id = (?)", (active,allow_annonce_spam, id_user, ))
+            self.connection.commit()                     
 
     def sub_spam_allow(self,spam_allow):
         with self.connection: 
             result = self.cursor.execute("SELECT id FROM active_sub WHERE allow_spam = (?)", (spam_allow,)).fetchall()
             return(result) 
+
+    def annonce_sub_spam_allow(self,allow_annonce_spam):
+        with self.connection: 
+            result = self.cursor.execute("SELECT id FROM active_sub WHERE allow_annonce_spam = (?)", (allow_annonce_spam,)).fetchall()
+            return(result)             
 
     def subscribers_to_db(self, id,first_name,username, country=None, city=None, geonameid=None, latitude=None, longitude=None):
         with self.connection:

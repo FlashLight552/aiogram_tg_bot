@@ -6,7 +6,7 @@ from aiogram.dispatcher.filters import Text
 
 from utils.db_new import db
 from keys import main_btn
-
+from create_bot import telegram_bot
 
 
 class Form(StatesGroup):
@@ -23,7 +23,16 @@ async def get_feedback(message: types.Message, state: FSMContext):
         await state.finish() # Выключаем состояние
         db.feedback_to_db(message['from']['id'], proxy['text'])
         await message.answer('Cпасибо за Ваш отзыв.', reply_markup=main_btn)
-
+        
+        admins = db.show_all_from_table('admins')
+        # print (admins)
+        for item in admins:
+            # if message['from']['id'] == item[0]:
+            if item[1] != 'owner':
+                try:
+                    await telegram_bot.send_message(item[0],'Новый отзыв записан')
+                    # print(item)
+                except: pass
 
 def register_feedback(dp: Dispatcher):   
     dp.register_message_handler(start_feedback, commands=['start_feedback']) 

@@ -3,7 +3,7 @@ import logging
 import asyncio
 
 from create_bot import dp
-from handler import main, spam, youtube, admin, get_feedback
+from handler import main, spam, youtube, admin, get_feedback, annonce_spam
 from utils.scheduled import scheduled_last_video, scheduled_popular_video
 from utils.db_new import db
 from data.config import owner
@@ -18,11 +18,10 @@ youtube.handlers_youtube(dp)
 spam.handlers_spam(dp)
 admin.admin(dp)
 get_feedback.register_feedback(dp)
+annonce_spam.handlers_annonce_spam(dp)
 
 
 if __name__ == '__main__':
-
-    
     db.create_tables()
     db.admins_to_db(owner, 'owner', 'Господин')
 
