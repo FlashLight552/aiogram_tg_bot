@@ -38,11 +38,12 @@ userid = KeyboardButton('ID пользователя')
 feed_list = KeyboardButton('Список отзывов')
 stats_list = KeyboardButton('Статистика')
 active_list = KeyboardButton('Список активных')
+spam = KeyboardButton('Рассылка')
 
 
 
 
-adm_btn.add(set_admin,del_admin,admins_list,sub_list,userid,feed_list,stats_list, active_list)
+adm_btn.add(set_admin,del_admin,admins_list,sub_list,userid,feed_list,stats_list, active_list, spam)
 
 
 

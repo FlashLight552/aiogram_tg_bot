@@ -108,6 +108,7 @@ async def confirm_send_spam (message: types.Message, state: FSMContext):
 def handlers_spam(dp: Dispatcher):
     # Начало
     dp.register_message_handler(spam, commands=['spam'])
+    dp.register_message_handler(spam, Text(equals = 'Рассылка', ignore_case = True))
     # Отмена    
     dp.register_message_handler(cancel_spam, state="*", commands='cancel')
     dp.register_message_handler(cancel_spam, Text(equals = 'cancel', ignore_case = True), state="*" )
