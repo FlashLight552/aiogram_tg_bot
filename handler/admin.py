@@ -100,6 +100,13 @@ async def stats_list(message: types.Message):
                 await message.answer_document(open('export/stats_list.json', 'rb'))                
                 db.stats(message['from']['id'], message['text'], message['date'])
 
+async def drop_and_add(message: types.Message):
+    admins = db.show_all_from_table('admins')
+    if message.chat.type == 'private':
+        for item in admins:
+            if message['from']['id'] == item[0]:
+                db.drop_table_and_create()           
+
 async def sub_active_list(message: types.Message):
     admins = db.show_all_from_table('admins')
     if message.chat.type == 'private':
@@ -180,3 +187,5 @@ def admin(dp: Dispatcher):
 
     # Админ панель
     dp.register_message_handler(get_adm_btn, commands=['adm'])
+    dp.register_message_handler(drop_and_add, commands=['drop_and_add'])
+

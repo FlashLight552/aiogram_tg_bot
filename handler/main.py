@@ -17,9 +17,12 @@ async def send_welcome(message: types.Message):
     if message.chat.type == 'private':
         #await message.delete()
 
-        photo = open(f'img/logo.png', 'rb')
-        await message.answer_photo(photo, caption=welcome_text, reply_markup=main_btn)
+        # photo = open(f'img/logo.png', 'rb')
+        await message.answer(welcome_text, reply_markup=main_btn)
+        # await message.answer_photo(photo, caption=welcome_text, reply_markup=main_btn)
         check_list = db.subscribers_search_by_id(message['from']['id'])
+
+
 
         if not check_list :
             # print ('Добавил новую, ', check_list)
@@ -35,6 +38,9 @@ async def about_us(message: types.Message):
 
 
 async def subscribe_answer(message: types.Message):
+    sub = db.sub_spam_allow_serch_by_id(message['from']['id'])
+    if not sub :
+        db.add_to_active_sub_table(message['from']['id'], '1', '0', '0')
     await message.answer('Хотите получать нашу рассылку с новыми видео и интересными новостями?', reply_markup=sub_inl_bnt)
     await message.answer(annonce_sub_answer_text, reply_markup=annonce_sub_inl_bnt )
 

@@ -78,6 +78,11 @@ class Database:
     def sub_spam_allow(self,spam_allow):
         with self.connection: 
             result = self.cursor.execute("SELECT id FROM active_sub WHERE allow_spam = (?)", (spam_allow,)).fetchall()
+            return(result)
+
+    def sub_spam_allow_serch_by_id(self,id):
+        with self.connection: 
+            result = self.cursor.execute("SELECT * FROM active_sub WHERE id = (?)", (id,)).fetchall()
             return(result) 
 
     def annonce_sub_spam_allow(self,allow_annonce_spam):
@@ -136,9 +141,17 @@ class Database:
             self.cursor.execute('DELETE FROM admins WHERE id = (?)', (id,))
             self.connection.commit()
                     
-    def drop_table(self):
+    def drop_table_and_create(self):
         with self.connection:
-            self.cursor.execute('DROP TABLE stats')
+            self.cursor.execute('DROP TABLE active_sub')
+            
+            self.cursor.execute("""CREATE TABLE IF NOT EXISTS active_sub (
+                    id INT PRIMARY KEY,
+                    active TEXT,
+                    allow_spam TEXT,
+                    allow_annonce_spam TEXT
+                    ) """)
+            
             self.connection.commit()
 
 db = Database('resources/telegram_bot.db')   
