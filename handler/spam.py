@@ -92,16 +92,22 @@ async def confirm_send_spam (message: types.Message, state: FSMContext):
         try:
             if proxy['type'] == 'send_document':
                 await telegram_bot.send_document(item[0], proxy['content'], caption=proxy['text_message'])
+                db.update_sub(item[0], '1')
             if proxy['type'] == 'send_photo':
                 await telegram_bot.send_photo(item[0],proxy['content'], caption=proxy['text_message'])
+                db.update_sub(item[0], '1')
             if proxy['type'] == 'send_video':
                 await telegram_bot.send_video(item[0], proxy['content'], caption=proxy['text_message'])
+                db.update_sub(item[0], '1')
             if proxy['type'] == 'send_audio':
-                await telegram_bot.send_audio(item[0], proxy['content'], caption=proxy['text_message'])                
+                await telegram_bot.send_audio(item[0], proxy['content'], caption=proxy['text_message'])   
+                db.update_sub(item[0], '1')             
             if proxy['type'] == 'send_voice':
                 await telegram_bot.send_voice(item[0],proxy['content']) 
+                db.update_sub(item[0], '1')
             if proxy['type'] == 'send_message': 
-                await telegram_bot.send_message(item[0],proxy['text_message'])       
+                await telegram_bot.send_message(item[0],proxy['text_message']) 
+                db.update_sub(item[0], '1')      
         except:
             db.add_to_active_sub_table(item[0], '0','0','0')   
     await message.answer('Спам окончен, хи-хи-хи')

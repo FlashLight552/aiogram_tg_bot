@@ -39,7 +39,7 @@ async def scheduled_last_video(wait_for):
                     try:
                         await telegram_bot.send_message(item[0], 'Новое видео!\n'+hyperlink, parse_mode='HTML')   
                     except: 
-                        db.update_sub(item[0],'0','0')
+                        db.update_sub_allow_spam(item[0],'0','0')
             db.youtube_video_to_db(url[i], title[i],'last_video', str(data))
         # print('Работаю!')      
     except:

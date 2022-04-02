@@ -45,11 +45,11 @@ async def subscribe_answer(message: types.Message):
     await message.answer(annonce_sub_answer_text, reply_markup=annonce_sub_inl_bnt )
 
 async def sub(call: types.CallbackQuery):
-    db.update_sub(call['from']['id'],'1','1')
+    db.update_sub_allow_spam(call['from']['id'],'1','1')
     await call.message.answer('Подписка оформлена, спасибо!')
 
 async def unsub(call: types.CallbackQuery):
-    db.update_sub(call['from']['id'],'1','0')    
+    db.update_sub_allow_spam(call['from']['id'],'1','0')    
     await call.message.answer('Подписка отключена! Возвращайтесь к нам как можно скорее!')
 
 #  анонсы онлайн лекций

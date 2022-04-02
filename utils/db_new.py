@@ -60,10 +60,15 @@ class Database:
             self.cursor.execute("INSERT OR REPLACE INTO active_sub  VALUES (?,?,?,?)", (id_user, active, allow_spam, allow_annonce_spam))
             self.connection.commit()        
 
-    def update_sub(self, id_user, active, allow_spam):
+    def update_sub_allow_spam(self, id_user, active, allow_spam):
         with self.connection:
             self.cursor.execute("UPDATE active_sub SET active = (?), allow_spam = (?) WHERE id = (?)", (active,allow_spam, id_user, ))
             self.connection.commit()
+
+    def update_sub(self, id_user, active):
+        with self.connection:
+            self.cursor.execute("UPDATE active_sub SET active = (?) WHERE id = (?)", (active, id_user, ))
+            self.connection.commit()            
 
     def update_sub_on_start(self, id_user, active):
         with self.connection:
