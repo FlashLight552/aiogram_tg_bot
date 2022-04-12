@@ -46,10 +46,11 @@ adm_btn.add(set_admin,del_admin,admins_list,sub_list,userid,feed_list,stats_list
 
 
 # inline
-inl_bnt = InlineKeyboardMarkup()
+inl_bnt = InlineKeyboardMarkup(row_width=1)
 shabbat_light = InlineKeyboardButton(text='Как зажечь субботние свечи?', callback_data='shabbat_light_callbk')
 avdala = InlineKeyboardButton(text='Как провести Авдалу?', callback_data='avdala_btn_callbk')
-inl_bnt.add(shabbat_light, avdala)
+pesah_seder = InlineKeyboardButton(text='Как проводить пасхальный седер?', url='https://youtu.be/3Q-NeCrwnaA')
+inl_bnt.add(shabbat_light, avdala, pesah_seder)
 
 
 # sub inline

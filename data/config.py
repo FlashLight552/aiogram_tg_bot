@@ -1,4 +1,5 @@
-# token = "5107264367:AAETMeLMXqszBgC7wzv4elk2MRLuJeaFWIo"
+# token = "5183365795:AAHWNSzTh5CiK_2xzjukh0zOGbYceDZw3JA" # Тестовая площадка
+
 token = "5165379339:AAHT_QmNMMfQhrurHirYd9zrTMNKG8EDwgU"
 
 yt_token = "AIzaSyCBOHZDK906DQqQNNfh68a9RG1EonYOP50"
