@@ -3,7 +3,7 @@ import logging
 import asyncio
 
 from create_bot import dp
-from handler import main, spam, youtube, admin, get_feedback, annonce_spam
+from handler import hebcal_api, main, spam, youtube, admin, get_feedback, annonce_spam
 from utils.scheduled import scheduled_last_video, scheduled_popular_video
 from utils.db_new import db
 from data.config import owner
@@ -19,6 +19,7 @@ spam.handlers_spam(dp)
 admin.admin(dp)
 get_feedback.register_feedback(dp)
 annonce_spam.handlers_annonce_spam(dp)
+hebcal_api.handlers_shabbat_time(dp)
 
 
 if __name__ == '__main__':
