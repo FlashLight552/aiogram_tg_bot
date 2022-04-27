@@ -106,11 +106,6 @@ async def confirm_send_spam (message: types.Message, state: FSMContext):
     await state.finish()
 
 
-# async def spam_video_from_group(message: types.Document):
-#     print(message)
-#     caption = message.caption
-#     video_file = message.video.file_id
-#     await telegram_bot.send_video(330663508, video_file, caption=caption)
 
 # Регистрация хендлеров
 def handlers_annonce_spam(dp: Dispatcher):
@@ -126,6 +121,3 @@ def handlers_annonce_spam(dp: Dispatcher):
     dp.register_message_handler(start_spam_voice, content_types=['voice'], state=Form.ann_text_message)
     dp.register_message_handler(start_spam_video, content_types=['video'], state=Form.ann_text_message)
     dp.register_message_handler(start_spam_audio, content_types=['audio'], state=Form.ann_text_message)
-    # Парсинг с тг групп и каналов
-    # dp.register_message_handler(spam_video_from_group, content_types=['video'])
-    # dp.register_channel_post_handler(spam_video_from_group, content_types=['video'])

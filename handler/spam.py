@@ -27,7 +27,6 @@ async def spam(message: types.Message):
             if message['from']['id'] == item[0]:
                 await message.answer('Сообщение для рассылки \nДля отмены /cancel')
                 await Form.text_message.set() # Устанавливаем состояние
-                db.stats(message['from']['id'], message['text'], message['date'])
 
 async def cancel_spam(message: types.Message, state: FSMContext):
     current_stage = await state.get_state()
@@ -35,7 +34,6 @@ async def cancel_spam(message: types.Message, state: FSMContext):
         return
     await state.finish() # Выключаем состояние
     await message.answer('Охрана, отмена')
-    db.stats(message['from']['id'], message['text'], message['date'])
 
 
 async def start_spam_photo(message: types.Message, state: FSMContext):

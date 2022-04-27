@@ -16,17 +16,15 @@ class Form(StatesGroup):
     video_name = State()
 
 # Поиск видео по имени на канале
-# @dp.message_handler(commands=['search'])
 async def start_search(message: types.Message):
     await message.answer('Введите название / фрагмент названия видео')
-    await Form.video_name.set() # Устанавливаем состояние
-    db.stats(message['from']['id'], message['text'], message['date'])
+    await Form.video_name.set() 
     
-# @dp.message_handler(state=Form.video_name) # Принимаем состояние
+
 async def start_search_pars(message: types.Message, state: FSMContext):
-    async with state.proxy() as proxy: # Устанавливаем состояние ожидания
+    async with state.proxy() as proxy: 
         proxy['video_name'] = message.text
-    await state.finish() # Выключаем состояние
+    await state.finish() 
     url, title = search_pars(proxy['video_name'])
     hyperlink = ''
 
@@ -38,11 +36,10 @@ async def start_search_pars(message: types.Message, state: FSMContext):
         await message.answer(hyperlink + promo_text, parse_mode='HTML')
     else:
             await message.answer('Таких видео не найдено' + promo_text)
-    db.stats(message['from']['id'], message['text'], message['date'])
+    db.stats(message['from']['id'], 'Поиск уроков', message['date'])
 
 
 # Последнее видео на канале
-# @dp.message_handler(commands=['last']) 
 async def last_video_yt(message: types.Message):
     list = db.youtube_video_show_all('last_video', yt_last_video_count)
     hyperlink = ''
@@ -56,22 +53,16 @@ async def last_video_yt(message: types.Message):
     db.stats(message['from']['id'], message['text'], message['date'])
 
 # Популярные видео на канале
-# @dp.message_handler(commands=['popular']) 
+
 async def popular_video_yt(message: types.Message):
-    # link, title = youtube_popular(yt_channel_id, 5, 'rating')
     list = db.youtube_video_show_all('popular_video', yt_popular_video_count)
     hyperlink = ''
-    # count = len(list)
     num = 0
+    
     for item in list:
         num += 1
         hyperlink = hyperlink + '\n' + str(num) + '. ' + str(hlink(item[1],item[0]))   
-
-
-    # for  i in range(0, count):
-    #     num = i + 1
-    #     hyperlink = hyperlink + '\n' + str(num) + '. ' + str(hlink(title[i],link[i]))           
-        
+                 
     await message.answer(hyperlink + promo_text, parse_mode='HTML')
     db.stats(message['from']['id'], message['text'], message['date'])
 
