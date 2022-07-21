@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from pickle import TRUE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ PROJECT_ROOT = os.path.dirname(__file__)
 SECRET_KEY = 'django-insecure-_8#cuo+vcisbj$ul3-&!h9-xbv_im5#g1=ko86sh9+me&id5w8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = TRUE
 
 ALLOWED_HOSTS = ['*']
 
