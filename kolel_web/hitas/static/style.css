@@ -90,3 +90,12 @@ input#gs{
 input#gs:checked {
   background-color: var(--tg-theme-button-color);
 }
+
+label.form-check-label {
+  padding: 0px 0px 0px 5px;
+}
+.form-check {
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+}
