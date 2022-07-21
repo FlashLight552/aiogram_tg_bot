@@ -76,7 +76,7 @@ input#gd, select#gm, input#gy {
 }
 
 input#gd:focus, select#gm:focus, input#gy:focus {
-  border-color: var(--tg-theme-secondary-bg-color);
+  border-color: var(--tg-theme-text-color);
   box-shadow: inset 0 0px 0px rgb(137, 204, 212,0), 0 0 0px rgba(255, 0, 0, 0);
 
 }
