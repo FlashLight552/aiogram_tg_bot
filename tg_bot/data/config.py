@@ -11,4 +11,4 @@ owner = 330663508 # Владелец
 yt_last_video_count = 5
 yt_popular_video_count = 5
 
-HOST = 'https://static.37.148.108.65.clients.your-server.de'
+HOST = 'https://test.flashlight.pp.ua'
