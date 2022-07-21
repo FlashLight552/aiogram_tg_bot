@@ -65,6 +65,13 @@ async def unsub_annonce(call: types.CallbackQuery):
     await call.message.answer(unsub_text, disable_notification=True)
 
 
+async def hitas_def(message: types.Message):
+    await message.answer(hitas_cmd, reply_markup=hitas_btn)
+
+async def date_conversion_def(message: types.Message):
+    await message.answer(date_conversion_cmd, reply_markup=date_conversion_btn)
+
+
 def handlers_main(dp: Dispatcher):
     dp.register_message_handler(start, commands=['start'])
     
@@ -82,3 +89,5 @@ def handlers_main(dp: Dispatcher):
 
     dp.register_callback_query_handler(start_inline, text='start')
     
+    dp.register_message_handler(hitas_def, Text(equals = hitas_cmd, ignore_case = True))
+    dp.register_message_handler(date_conversion_def, Text(equals = date_conversion_cmd, ignore_case = True))

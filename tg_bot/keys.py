@@ -49,10 +49,28 @@ search_video = KeyboardButton(start_search_cmd)
 hebcal_api = KeyboardButton(check_or_request_location_cmd)
 feedback_btn = KeyboardButton(start_feedback_cmd)
 subscribe = KeyboardButton(subscribe_answer_cmd)
-hitas = KeyboardButton(hitas_cmd, web_app=WebAppInfo(url=f"{HOST}"))
-date_conversion = KeyboardButton(date_conversion_cmd, web_app=WebAppInfo(url=f"{HOST}/conversion_start/"))
+hitas = KeyboardButton(hitas_cmd)
+date_conversion = KeyboardButton(date_conversion_cmd)
 translate_btn =  KeyboardButton(translate_btn_cmd)
-main_btn.add(hebcal_api, about, last_video, popular_video, search_video, hitas, date_conversion,translate_btn, feedback_btn,subscribe)
+main_btn.add(hebcal_api, about, last_video, popular_video, search_video, hitas, date_conversion, translate_btn, feedback_btn,subscribe)
+# hitas = KeyboardButton(hitas_cmd, web_app=WebAppInfo(url=f"{HOST}"))
+# date_conversion = KeyboardButton(date_conversion_cmd, web_app=WebAppInfo(url=f"{HOST}/conversion_start/"))
+
+# Блок клаиватуры для хумаша
+hitas_btn = ReplyKeyboardMarkup(resize_keyboard=True)
+chumash = KeyboardButton('Хумаш', web_app=WebAppInfo(url=f"{HOST}"), web_app=WebAppInfo(url=f"{HOST}/chumash"))
+tehillim = KeyboardButton('Теилим', web_app=WebAppInfo(url=f"{HOST}/tehillim"))
+tanya = KeyboardButton('Тания', web_app=WebAppInfo(url=f"{HOST}/tanya"))
+hayom_yom = KeyboardButton('Йом йом', web_app=WebAppInfo(url=f"{HOST}/hayom_yom"))
+rambam = KeyboardButton('Книга заповедей» РАМБАМа', web_app=WebAppInfo(url=f"{HOST}/rambam"))
+moshiach = KeyboardButton('Мошиах и Освобождение', web_app=WebAppInfo(url=f"{HOST}/moshiach"))
+hitas_btn.add(chumash, tehillim, tanya,hayom_yom,rambam,moshiach,start_inl_btn)
+
+# Блок клаиватуры для конвертации даты
+date_conversion_btn = ReplyKeyboardMarkup(resize_keyboard=True)
+gregorian_conv = KeyboardButton('Gregorian to Hebrew', web_app=WebAppInfo(url=f"{HOST}/gregorian_conv"))
+hebrew_conv = KeyboardButton('Hebrew to Gregorian', web_app=WebAppInfo(url=f"{HOST}/hebrew_conv"))
+date_conversion_btn.add(gregorian_conv, hebrew_conv, start_inl_btn)
 
 
 # Выбор языка
