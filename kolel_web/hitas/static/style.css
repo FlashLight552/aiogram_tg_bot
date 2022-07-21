@@ -1,0 +1,92 @@
+.button-tg {
+  background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  padding: 1rem 1.75rem;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 10px;
+}
+
+.button-tg:hover {
+  background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+}
+
+@media (min-width: 768px) {
+  .button-tg {
+    padding: 1rem 2rem;
+  }
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--tg-theme-bg-color, #f2f2f2);
+  color: var(--tg-theme-text-color, #222222);
+  font-size: large;
+  margin: 0 20px;
+}
+
+.Hwrap {
+  padding: 0px 12px 20px 12px;
+}
+
+.source {
+  text-align: end;
+  margin: 0 12px;
+  opacity: 50%;
+}
+
+.title {
+  text-align: center;
+}
+
+.date {
+  margin: 0 12px;
+  text-align: center;
+  opacity: 50%;
+  font-size: medium;
+}
+
+.gregorian_to_hebrew {
+  margin: 20px 0px;
+}
+
+form.row.gy-1.gx-2.mb-3.align-items-center, input, textarea {
+  background-color: var(--tg-theme-bg-color, #f2f2f2);
+  justify-content: center;
+}
+
+
+input#gd, select#gm, input#gy {
+  background-color: var(--tg-theme-bg-color, #f2f2f2);
+  color: var(--tg-theme-text-color, #222222);
+  
+  border-color: var(--tg-theme-button-color);
+  border: 0px solid ;
+  border-bottom: 2px solid var(--tg-theme-button-color);
+  border-radius: 2px;
+}
+
+input#gd:focus, select#gm:focus, input#gy:focus {
+  border-color: var(--tg-theme-secondary-bg-color);
+  box-shadow: inset 0 0px 0px rgb(137, 204, 212,0), 0 0 0px rgba(255, 0, 0, 0);
+
+}
+
+input#gs{
+  background-color: var(--tg-theme-bg-color, #f2f2f2);
+  color: var(--tg-theme-text-color, #222222);
+  border-color: var(--tg-theme-button-color);
+}
+
+input#gs:checked {
+  background-color: var(--tg-theme-button-color);
+}

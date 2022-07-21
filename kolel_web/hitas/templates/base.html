@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru-Ru">
+  <head>
+    {% block custom_link %}{% endblock custom_link %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+    <title>Еврейский помощник</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      function setThemeClass() {
+        document.documentElement.className = Telegram.WebApp.colorScheme;
+      }
+
+      Telegram.WebApp.onEvent("themeChanged", setThemeClass);
+      setThemeClass();
+    </script>
+  </head>
+  <body>
+    {% block content %}{% endblock content %}
+    {% block telegram_script %}{% endblock telegram_script %}
+  </body>
+</html>

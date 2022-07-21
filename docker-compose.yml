@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  kolel_bot:
+    build: 
+      context: ./tg_bot
+      dockerfile: Dockerfile 
+    restart: always
+
+
+  django:
+    build:
+      context: ./kolel_web
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 9000
+    environment:
+      - SECRET_KEY=''
+      - DEBUG=FALSE
+
+networks:
+  default:
+    external:
+      name: nginx-networks

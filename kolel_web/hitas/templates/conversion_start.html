@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="contentbutton">
+<a href="{% url 'hitas:gregorian_conv' %}" class="button-tg"> Gregorian to Hebrew </a>
+<a href="{% url 'hitas:hebrew_conv' %}"class="button-tg"> Hebrew to Gregorian </a>
+
+{% block telegram_script %}
+<script src="https://webappcontent.telegram.org/js/jquery.min.js"></script>
+<script>
+    let tg = window.Telegram.WebApp;
+    tg.MainButton.hide();
+</script>
+{% endblock telegram_script %}
+</div>
+{% endblock content %}
