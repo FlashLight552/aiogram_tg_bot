@@ -58,7 +58,8 @@ main_btn.add(hebcal_api, about, last_video, popular_video, search_video, hitas, 
 
 # Блок клаиватуры для хумаша
 hitas_btn = ReplyKeyboardMarkup(resize_keyboard=True)
-chumash = KeyboardButton('Хумаш', web_app=WebAppInfo(url=f"{HOST}/chumash"))
+# chumash = KeyboardButton('Хумаш', web_app=WebAppInfo(url=f"{HOST}/chumash"))
+chumash = KeyboardButton('Хумаш', web_app=WebAppInfo(url=f"https://www.youtube.com/"))
 tehillim = KeyboardButton('Теилим', web_app=WebAppInfo(url=f"{HOST}/tehillim"))
 tanya = KeyboardButton('Тания', web_app=WebAppInfo(url=f"{HOST}/tanya"))
 hayom_yom = KeyboardButton('Йом йом', web_app=WebAppInfo(url=f"{HOST}/hayom_yom"))
