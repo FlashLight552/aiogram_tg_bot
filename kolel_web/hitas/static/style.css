@@ -41,7 +41,7 @@ body {
 .source {
   text-align: end;
   margin: 0 12px;
-  opacity: 50%;
+  /* opacity: 50%; */
 }
 
 .title {

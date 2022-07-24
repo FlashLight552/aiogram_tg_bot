@@ -9,7 +9,7 @@
 <form class="row gy-1 gx-2 mb-3 align-items-center">
     <div class="form-floating col-auto mb-2">
         <input type="text" class="form-control" name="gd" placeholder="День" size="5" value="{{day}}" maxlength="2" id="gd">
-        <label for="gd">Day</label>
+        <label for="gd">День</label>
     </div>
     <div class="form-floating col-auto mb-2">
         <select name="gm" id="gm" class="form-select">
@@ -26,11 +26,11 @@
             <option {% if mounth == '11' %} selected value="11" {% endif %} value="11">Ноябрь</option>
             <option {% if mounth == '12' %} selected value="12" {% endif %} value="12">Декабрь</option>
         </select>
-        <label for="gm">Month</label>
+        <label for="gm">Месяц</label>
     </div><!-- .col -->
     <div class="form-floating col-auto mb-2">
         <input type="text" class="form-control" name="gy" placeholder="Год" value="{{year}}" size="5" maxlength="4"  id="gy" pattern="-?\d*">
-        <label for="gy">Year</label>
+        <label for="gy">Год</label>
     </div><!-- .col -->
     <div>
         <div class="form-check">
@@ -42,7 +42,7 @@
     <script src="https://webappcontent.telegram.org/js/jquery.min.js"></script>
     <script>
         let tg = window.Telegram.WebApp;
-        tg.MainButton.text = "Convert to Hebrew";
+        tg.MainButton.text = "Конвертировать в Еврейский";
         tg.MainButton.show();
     </script>
 
