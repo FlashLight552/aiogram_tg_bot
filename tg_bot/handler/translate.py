@@ -14,7 +14,7 @@ class Form(StatesGroup):
     get_language = State()
 
 async def start_translate(message: types.Message):
-    await message.answer('Введите слово/фразу для перевода.', reply_markup=cancel_kb, disable_notification=True)
+    await message.answer(translate_btn_text, reply_markup=cancel_kb, disable_notification=True)
     await Form.get_phrase.set()
 
 
@@ -30,7 +30,7 @@ async def finish_translate(message: types.Message, state: FSMContext):
         proxy['language'] = message.text
     await state.finish() 
 
-    lang_list = {'English':'en', 'Ukrainian':'uk', 'Russian':'ru', 'Hebrew':'iw', 'Deutsch':'de', 'Yiddish':'yi'}
+    lang_list = {lang_eng_caption:'en', lang_ua_caption:'uk', lang_ru_caption:'ru', lang_he_caption:'iw', lang_de_caption:'de', lang_yi_caption:'yi'}
     for item in lang_list.items():
         if proxy['language'] in item:
             lang_code = item[1]

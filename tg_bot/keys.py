@@ -4,7 +4,6 @@ from aiogram.types.web_app_info import WebAppInfo
 from data.text import *
 from data.config import HOST
 
-
 # Наэкранные кнопки 
 
 # Геолокация
@@ -52,7 +51,8 @@ subscribe = KeyboardButton(subscribe_answer_cmd)
 hitas = KeyboardButton(hitas_cmd)
 date_conversion = KeyboardButton(date_conversion_cmd)
 translate_btn =  KeyboardButton(translate_btn_cmd)
-main_btn.add(hebcal_api, about, last_video, popular_video, search_video, hitas, date_conversion, translate_btn, feedback_btn,subscribe)
+shazam_btn = KeyboardButton(shazam_cmd)
+main_btn.add(hebcal_api, last_video, search_video, hitas, date_conversion, translate_btn, subscribe, feedback_btn, about, shazam_btn)
 # hitas = KeyboardButton(hitas_cmd, web_app=WebAppInfo(url=f"{HOST}"))
 # date_conversion = KeyboardButton(date_conversion_cmd, web_app=WebAppInfo(url=f"{HOST}/conversion_start/"))
 
@@ -67,21 +67,21 @@ moshiach = KeyboardButton('Мошиах и Освобождение', web_app=We
 hitas_btn.add(chumash, tehillim, tanya,hayom_yom,rambam,moshiach,start_inl_btn)
 
 # Блок клаиватуры для конвертации даты
-date_conversion_btn = ReplyKeyboardMarkup(resize_keyboard=True)
-gregorian_conv = KeyboardButton('Gregorian to Hebrew', web_app=WebAppInfo(url=f"{HOST}/gregorian_conv"))
-hebrew_conv = KeyboardButton('Hebrew to Gregorian', web_app=WebAppInfo(url=f"{HOST}/hebrew_conv"))
+date_conversion_btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+gregorian_conv = KeyboardButton("Григорианский ➡️ Еврейский", web_app=WebAppInfo(url=f"{HOST}/gregorian_conv"))
+hebrew_conv = KeyboardButton("Еврейский ➡️ Григорианский", web_app=WebAppInfo(url=f"{HOST}/hebrew_conv"))
 date_conversion_btn.add(gregorian_conv, hebrew_conv, start_inl_btn)
 
 
 # Выбор языка
 lang_btn = ReplyKeyboardMarkup(resize_keyboard=True)
-lang_eng = KeyboardButton('English')
-lang_ua = KeyboardButton('Ukrainian')
-lang_ru = KeyboardButton('Russian')
-lang_he = KeyboardButton('Hebrew')
-lang_de = KeyboardButton('Deutsch')
-lang_yi = KeyboardButton('Yiddish')
-lang_btn.add(lang_eng, lang_ua, lang_he, lang_yi, lang_de, lang_ru, cancel)
+lang_eng = KeyboardButton(lang_eng_caption)
+lang_ua = KeyboardButton(lang_ua_caption)
+lang_ru = KeyboardButton(lang_ru_caption)
+lang_he = KeyboardButton(lang_he_caption)
+lang_de = KeyboardButton(lang_de_caption)
+lang_yi = KeyboardButton(lang_yi_caption)
+lang_btn.add(lang_he, lang_yi, lang_eng, lang_ru, lang_ua, lang_de,cancel)
 
 translate_again_btn = ReplyKeyboardMarkup(resize_keyboard=True).add(KeyboardButton(reply), KeyboardButton(go_start_cmd))
 
@@ -124,8 +124,8 @@ unsub_annonce = InlineKeyboardButton(text='Отписаться ', callback_data
 annonce_sub_inl_bnt.add(sub_annonce, unsub_annonce)
 
 
-hebcal_inl = InlineKeyboardMarkup()
+hebcal_inl = InlineKeyboardMarkup(row_width=2)
 hebcal_shabbat_time = InlineKeyboardButton(text='Время Шаббата', callback_data='hebcal_shabbat_time')
 hebcal_zmanim = InlineKeyboardButton(text='Зманим', callback_data='hebcal_zmanim')
 hebcal_yahrzeit = InlineKeyboardButton(text='Yahrzeit', callback_data='hebcal_yahrzeit')
-hebcal_inl.add(hebcal_shabbat_time,hebcal_zmanim,hebcal_yahrzeit, update_inl_btn, start_inl_btn)
+hebcal_inl.add(hebcal_shabbat_time,hebcal_zmanim, update_inl_btn, start_inl_btn)

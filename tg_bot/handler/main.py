@@ -66,10 +66,13 @@ async def unsub_annonce(call: types.CallbackQuery):
 
 
 async def hitas_def(message: types.Message):
-    await message.answer(hitas_cmd, reply_markup=hitas_btn)
+    await message.answer(hitas_text, reply_markup=hitas_btn)
 
 async def date_conversion_def(message: types.Message):
-    await message.answer(date_conversion_cmd, reply_markup=date_conversion_btn)
+    await message.answer(date_conversion_text, reply_markup=date_conversion_btn)
+
+async def shazam_def(message: types.Message):
+    await message.answer(shazam_text)
 
 
 def handlers_main(dp: Dispatcher):
@@ -91,3 +94,4 @@ def handlers_main(dp: Dispatcher):
     
     dp.register_message_handler(hitas_def, Text(equals = hitas_cmd, ignore_case = True))
     dp.register_message_handler(date_conversion_def, Text(equals = date_conversion_cmd, ignore_case = True))
+    dp.register_message_handler(shazam_def, Text(equals = shazam_cmd, ignore_case = True))

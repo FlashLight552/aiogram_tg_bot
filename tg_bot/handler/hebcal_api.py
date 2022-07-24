@@ -50,11 +50,34 @@ def shabbat_time_request(user_id):
 
 def zmanim(user_id):
     status = db.check_location(user_id)
-    request_zmanim = requests.get(
-        'https://www.hebcal.com/zmanim?cfg=json&geonameid='+str(status[5]))
-    zmanim = (request_zmanim.json())
+    if status[5] != '-':
+        request_zmanim_time = requests.get(
+            'https://www.hebcal.com/zmanim?cfg=json&geonameid='+str(status[5]))
+        location_name = str(status[4]) + ' ' + str(status[3]) + '\n\n'
+
+    else:
+        lat = str(status[6])
+        lon = str(status[7])
+        request_zmanim_time = requests.get(
+            f'https://www.hebcal.com/zmanim?cfg=json&latitude={lat}&longitude={lon}')
+        location_name = request_zmanim_time.json()['location']['tzid'] + '\n\n'
+
+    zmanim = (request_zmanim_time.json())
+    
+    title_list = {'chatzotNight':'Хацот алайла(Полночь)', 'alotHaShachar':'Аллот Ашахар (Рассвет)', 'misheyakir':'Мишейакир (Самое раннее время надевания талита и тфилин)', 
+                'misheyakirMachmir':'misheyakirMachmir', 'dawn':'рассвет', 'sunrise':'восход', 'sofZmanShma':'Соф Зман Шма (самое позднее время чтения Шма)', 
+                'sofZmanShmaMGA':'sofZmanShmaMGA', 'sofZmanTfilla':'Соф Зман Тфила (Самое позднее время для Шахарит', 'sofZmanTfillaMGA':'sofZmanTfillaMGA', 
+                'chatzot':'Хацот айом (Полдень)', 'minchaGedola':'Минха гдола (Самое раннее время Минхи)', 'minchaKetana':'Минха ктана (Малая минха)', 
+                'plagHaMincha':'Плаг аминха (Полу-минха)', 'sunset':'закат', 'dusk':'сумерки', 'tzeit7083deg':'tzeit7083deg', 'tzeit85deg':'tzeit85deg', 'tzeit42min':'tzeit42min', 
+                'tzeit50min':'tzeit50min', 'tzeit72min':'tzeit72min'}        
+    results = ''
+
     for item in zmanim['times']:
-        print(item)
+        if item in title_list:
+            title = title_list[item]
+            time = str(datetime.fromisoformat(zmanim['times'][item]).time()).replace(':00','',1)
+            results += f'{title} - {time}\n'
+    return (location_name ,results)
 
 
 @log
@@ -94,11 +117,15 @@ async def callback_shabbat_time(call : types.CallbackQuery):
     await call.message.answer(geo_update_text, reply_markup=update_inl, disable_notification=True)
     await call.message.answer(get_instructions_answer, reply_markup=inl_bnt, disable_notification=True)
     
-    db.stats(call.message['from']['id'], 'Получение геолокации', call.message['date'])
+    db.stats(call.message['from']['id'], 'Вермя шаббата', call.message['date'])
 
 
 async def callback_zmanim(call : types.CallbackQuery):
-    await call.message.answer('coming soon "callback_zmanim"')
+    location, text = zmanim(call.from_user.id)
+    await call.message.answer(f'{location}{text}', reply_markup=main_btn, disable_notification=True)
+    await call.message.answer(geo_update_text, reply_markup=update_inl, disable_notification=True)
+
+    db.stats(call.message['from']['id'], 'Зманим', call.message['date'])
 
 
 async def callback_yahrzeit(call : types.CallbackQuery):
