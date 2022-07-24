@@ -17,7 +17,7 @@ def hitas_text():
     hitasNavDay = str(hitasNavDay).replace('/', '.',2)
 
     chumash = str(Hwrap_raw[0]).replace('chumash Hwrap', 'Hwrap')
-    tehillim = str(Hwrap_raw[1])[:-1061]
+    tehillim = str(Hwrap_raw[1])[:-1061].replace(' Короля Мошиаха:', ':')
     tanya = str(Hwrap_raw[2])
     hayom_yom = str(Hwrap_raw[3])
     rambam = str(Hwrap_raw[4])

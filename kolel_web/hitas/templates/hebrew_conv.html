@@ -8,30 +8,30 @@
 <div class="gregorian_to_hebrew">
 <form class="row gy-1 gx-2 mb-3 align-items-center">
     <div class="form-floating col-auto mb-2">
-        <input type="text" class="form-control" name="gd" placeholder="day" size="5" value="{{day}}" maxlength="2" id="gd">
+        <input type="text" class="form-control" name="gd" placeholder="День" size="5" value="{{day}}" maxlength="2" id="gd">
         <label for="gd">Day</label>
     </div>
     <div class="form-floating col-auto mb-2">
         <select name="gm" id="gm" class="form-select">
-            <option {% if mounth == 'Nisan' %} selected value="Nisan" {% endif %} value="Nisan">Nisan</option>
-            <option {% if mounth == 'Iyyar' %} selected value="Iyyar" {% endif %} value="Iyyar">Iyyar</option>
-            <option {% if mounth == 'Sivan' %} selected value="Sivan" {% endif %} value="Sivan">Sivan</option>
-            <option {% if mounth == 'Tamuz' %} selected value="Tamuz" {% endif %} value="Tamuz">Tamuz</option>
-            <option {% if mounth == 'Av' %} selected value="Av" {% endif %} value="Av">Av</option>
-            <option {% if mounth == 'Elul' %} selected value="Elul" {% endif %} value="Elul">Elul</option>
-            <option {% if mounth == 'Tishrei' %} selected value="Tishrei" {% endif %} value="Tishrei">Tishrei</option>
-            <option {% if mounth == 'Cheshvan' %} selected value="Cheshvan" {% endif %} value="Cheshvan">Cheshvan</option>
-            <option {% if mounth == 'Kislev' %} selected value="Kislev" {% endif %} value="Kislev">Kislev</option>
-            <option {% if mounth == 'Tevet' %} selected value="Tevet" {% endif %} value="Tevet">Tevet</option>
-            <option {% if mounth == "Sh'vat" %} selected value="Sh'vat" {% endif %} value="Sh'vat">Sh'vat</option>
-            <option {% if mounth == 'Adar' %} selected value="Adar" {% endif %} value="Adar">Adar</option>
-            <option {% if mounth == 'Adar I' %} selected value="Adar I" {% endif %} value="Adar I">Adar I</option>
-            <option {% if mounth == 'Adar II' %} selected value="Adar II" {% endif %} value="Adar II">Adar II</option>
+            <option {% if mounth == 'Nisan' %} selected value="Nisan" {% endif %} value="Nisan">Нисан</option>
+            <option {% if mounth == 'Iyyar' %} selected value="Iyyar" {% endif %} value="Iyyar">Ияр</option>
+            <option {% if mounth == 'Sivan' %} selected value="Sivan" {% endif %} value="Sivan">Сиван</option>
+            <option {% if mounth == 'Tamuz' %} selected value="Tamuz" {% endif %} value="Tamuz">Тамуз</option>
+            <option {% if mounth == 'Av' %} selected value="Av" {% endif %} value="Av">Ав</option>
+            <option {% if mounth == 'Elul' %} selected value="Elul" {% endif %} value="Elul">Элул</option>
+            <option {% if mounth == 'Tishrei' %} selected value="Tishrei" {% endif %} value="Tishrei">Тишрей</option>
+            <option {% if mounth == 'Cheshvan' %} selected value="Cheshvan" {% endif %} value="Cheshvan">Хешван</option>
+            <option {% if mounth == 'Kislev' %} selected value="Kislev" {% endif %} value="Kislev">Кислев</option>
+            <option {% if mounth == 'Tevet' %} selected value="Tevet" {% endif %} value="Tevet">Тевет</option>
+            <option {% if mounth == "Sh'vat" %} selected value="Sh'vat" {% endif %} value="Sh'vat">Шват</option>
+            <option {% if mounth == 'Adar' %} selected value="Adar" {% endif %} value="Adar">Адар</option>
+            <option {% if mounth == 'Adar I' %} selected value="Adar I" {% endif %} value="Adar I">Адар I</option>
+            <option {% if mounth == 'Adar II' %} selected value="Adar II" {% endif %} value="Adar II">Адар II</option>
         </select>
         <label for="gm">Month</label>
     </div>
     <div class="form-floating col-auto mb-2">
-        <input type="text" class="form-control" name="gy" placeholder="year" value="{{year}}" size="5" maxlength="4"  id="gy" pattern="-?\d*">
+        <input type="text" class="form-control" name="gy" placeholder="Год" value="{{year}}" size="5" maxlength="4"  id="gy" pattern="-?\d*">
         <label for="gy">Year</label>
     </div>
 
