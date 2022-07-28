@@ -1,25 +1,30 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.markdown import hlink
+from aiogram.utils.markdown import hlink, link
 from aiogram.dispatcher.filters import Text
 
 from create_bot import dp
 from utils.youtube import *
 from utils.db_new import db
-from data.config import yt_channel_id, yt_last_video_count, yt_popular_video_count
+from data.config import yt_channel_id, yt_last_video_count, yt_popular_video_count, URL_PLAYLIST_YT
 from data.text import *
 from keys import *
+
+from pytube import Playlist, YouTube
+import random
+
 
 # Класс состояний
 class Form(StatesGroup):
     video_name = State()
 
+
 # Поиск видео по имени на канале
 async def start_search(message: types.Message):
     await message.answer(yt_video_search, reply_markup=cancel_kb, disable_notification=True)
     await Form.video_name.set() 
-    
+
 
 async def start_search_pars(message: types.Message, state: FSMContext):
     async with state.proxy() as proxy: 
@@ -68,6 +73,19 @@ async def popular_video_yt(message: types.Message):
     db.stats(message['from']['id'], message['text'], message['date'])
 
 
+# Случайное видео с плейлиста
+async def random_video(message: types.Message):
+    url = URL_PLAYLIST_YT
+    p = Playlist(url)
+    url_list = []
+
+    for url in p.video_urls:
+        url_list.append(url)
+
+    video = random.choice(url_list)
+    await message.answer(hlink(YouTube(video).title, video), parse_mode='HTML')
+
+
 # Регистрация хендлеров
 def handlers_youtube(dp: Dispatcher):
     dp.register_message_handler(last_video_yt, commands=['last'])
@@ -80,3 +98,5 @@ def handlers_youtube(dp: Dispatcher):
     dp.register_message_handler(start_search, Text(equals = start_search_cmd, ignore_case = True))
 
     dp.register_message_handler(start_search_pars, state=Form.video_name)
+
+    dp.register_message_handler(random_video, Text(equals = random_video_cmd, ignore_case = True))

@@ -142,6 +142,8 @@ shazam_text = 'Тут Вы можете определить, что за муз
 
 go_start_cmd = 'На главную'
 
+random_video_cmd = 'Случайное видео'
+
 reply = 'Повторить'
 
 lang_eng_caption = 'Английский'

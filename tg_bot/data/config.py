@@ -12,3 +12,4 @@ yt_last_video_count = 5
 yt_popular_video_count = 5
 
 HOST = 'https://test.flashlight.pp.ua'
+URL_PLAYLIST_YT ='https://www.youtube.com/watch?v=OFi5pHnXths&list=PLFPb-b7wLbgWxiz5vIQxiH8OmpNv9B0gG'
