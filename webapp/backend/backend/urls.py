@@ -7,5 +7,6 @@ router = routers.DefaultRouter()
 router.register(r'hitas', HitasViewSet)
 
 urlpatterns = [
+    path('', include('api.urls')),
     path('api/', include(router.urls)),
 ]

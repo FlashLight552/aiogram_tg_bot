@@ -3,6 +3,11 @@ from .serializers import HitasSerializer
 from .models import Hitas
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse("DRF")
 
 
 class HitasViewSet(viewsets.ModelViewSet):
