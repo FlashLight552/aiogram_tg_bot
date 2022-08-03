@@ -12,7 +12,7 @@ function Hitas({ title }) {
   // Note: the empty deps array [] means
   // this useEffect will run once
   useEffect(() => {
-    let url = "http://koleltora.pp.ua:8000/api/hitas/" + title;
+    let url = "https://koleltora.pp.ua:8000/api/hitas/" + title;
     fetch(url)
       .then((res) => res.json())
       .then(
