@@ -31,12 +31,11 @@ function Hitas({ title }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function open_source(){
+  function open_source() {
     const tg = window.Telegram.WebApp;
     tg.ready();
-    tg.openLink('https://moshiach.ru/')
+    tg.openLink("https://moshiach.ru/");
   }
-
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -48,15 +47,18 @@ function Hitas({ title }) {
         <div className="date">{parse(items.date)}</div>
         <div className="title">{parse(items.title)}</div>
         <div className="text">{parse(items.text)}</div>
-        
-        <div className="source">
-          Источник:
-          <button onClick={open_source} className='source_btn'>moshiach.ru</button>
-        </div>
+
         <div>
           <Link to={"/"} className="button-tg">
             Назад
           </Link>
+        </div>
+
+        <div className="source">
+          Источник:
+          <button onClick={open_source} className="source_btn">
+            moshiach.ru
+          </button>
         </div>
       </div>
     );
