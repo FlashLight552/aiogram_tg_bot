@@ -1,0 +1,7 @@
+beautifulsoup4
+django-apscheduler
+django
+djangorestframework
+lxml
+requests
+django-cors-headers
