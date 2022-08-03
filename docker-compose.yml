@@ -12,8 +12,8 @@ services:
       context: ./webapp/backend
       dockerfile: Dockerfile
     restart: always
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
