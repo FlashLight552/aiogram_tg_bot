@@ -3,7 +3,7 @@ version: '3'
 services:
   kolel_bot:
     build: 
-      context: /bot
+      context: ./bot
       dockerfile: Dockerfile 
     restart: always
 
