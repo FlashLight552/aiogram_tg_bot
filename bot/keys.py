@@ -60,18 +60,18 @@ main_btn.add(hebcal_api, last_video, search_video, hitas, date_conversion, trans
 
 # Блок клаиватуры для хумаша
 hitas_btn = ReplyKeyboardMarkup(resize_keyboard=True)
-chumash = KeyboardButton('Хумаш', web_app=WebAppInfo(url=f"{HOST}/chumash"))
-tehillim = KeyboardButton('Теилим', web_app=WebAppInfo(url=f"{HOST}/tehillim"))
-tanya = KeyboardButton('Тания', web_app=WebAppInfo(url=f"{HOST}/tanya"))
-hayom_yom = KeyboardButton('Йом йом', web_app=WebAppInfo(url=f"{HOST}/hayom_yom"))
-rambam = KeyboardButton('Книга заповедей» РАМБАМа', web_app=WebAppInfo(url=f"{HOST}/rambam"))
-moshiach = KeyboardButton('Мошиах и Освобождение', web_app=WebAppInfo(url=f"{HOST}/moshiach"))
+chumash = KeyboardButton('Хумаш', web_app=WebAppInfo(url=f"{HOST}chumash"))
+tehillim = KeyboardButton('Теилим', web_app=WebAppInfo(url=f"{HOST}tehillim"))
+tanya = KeyboardButton('Тания', web_app=WebAppInfo(url=f"{HOST}tanya"))
+hayom_yom = KeyboardButton('Йом йом', web_app=WebAppInfo(url=f"{HOST}hayom_yom"))
+rambam = KeyboardButton('Книга заповедей» РАМБАМа', web_app=WebAppInfo(url=f"{HOST}rambam"))
+moshiach = KeyboardButton('Мошиах и Освобождение', web_app=WebAppInfo(url=f"{HOST}moshiach"))
 hitas_btn.add(chumash, tehillim, tanya,hayom_yom,rambam,moshiach,start_inl_btn)
 
 # Блок клаиватуры для конвертации даты
 date_conversion_btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-gregorian_conv = KeyboardButton("Григорианский ➡️ Еврейский", web_app=WebAppInfo(url=f"{HOST}/greg-to-heb"))
-hebrew_conv = KeyboardButton("Еврейский ➡️ Григорианский", web_app=WebAppInfo(url=f"{HOST}/heb-to-greg"))
+gregorian_conv = KeyboardButton("Григорианский ➡️ Еврейский", web_app=WebAppInfo(url=f"{HOST}greg-to-heb"))
+hebrew_conv = KeyboardButton("Еврейский ➡️ Григорианский", web_app=WebAppInfo(url=f"{HOST}heb-to-greg"))
 date_conversion_btn.add(gregorian_conv, hebrew_conv, start_inl_btn)
 
 
