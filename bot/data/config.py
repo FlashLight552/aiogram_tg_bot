@@ -12,4 +12,4 @@ yt_last_video_count = 5
 yt_popular_video_count = 5
 
 HOST = 'https://koleltora.pp.ua/'
-URL_PLAYLIST_YT ='https://www.youtube.com/watch?v=8ylBZyglq1M&list=UUwrWGlk7WUQGWog8GvJ2gig'
+URL_PLAYLIST_YT ='https://www.youtube.com/watch?v=-CsenMcDjS4&list=PLKQB3CiY18OEblAuvyomNaCNwoeJNAm3u'
