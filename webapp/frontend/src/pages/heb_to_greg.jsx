@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 function Hebrew() {
-  const mounth_name = {
+  const month_name = {
     Нисан: "Нисан",
     Ияр: "Iyyar",
     Сиван: "Sivan",
@@ -88,8 +88,8 @@ function Hebrew() {
             defaultValue={items.hm}
             key={items.hm}
           >
-            {Object.keys(mounth_name).map((name, value) => (
-              <option key={name} value={Object.values(mounth_name)[value]}>
+            {Object.keys(month_name).map((name, value) => (
+              <option key={name} value={Object.values(month_name)[value]}>
                 {name}
               </option>
             ))}
