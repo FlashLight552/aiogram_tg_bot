@@ -38,7 +38,7 @@ async def web_app_mess(message: types.message):
         url = f'https://www.hebcal.com/converter?cfg=json&hy={date[3]}&hm={date[2]}&hd={date[1]}&h2g=1&strict=1'
         request = requests.get(url).json()
         for item in mounth_name.keys():
-            if item == text_request['hm']:
+            if item == request['hm']:
                 hm =  mounth_name[item]
         await message.answer("Еврейская дата:\n"\
                         f"{request['hd']} {hm} {request['hy']}\n"\
