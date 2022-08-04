@@ -12,7 +12,7 @@ function Hitas({ title }) {
   // Note: the empty deps array [] means
   // this useEffect will run once
   useEffect(() => {
-    let url = "https://test.flashlight.pp.ua/api/hitas/" + title;
+    let url = "https://api.koleltora.pp.ua/api/hitas/" + title;
     fetch(url)
       .then((res) => res.json())
       .then(
