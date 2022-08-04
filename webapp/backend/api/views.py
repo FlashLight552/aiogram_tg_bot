@@ -1,11 +1,10 @@
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .serializers import HitasSerializer
 from .models import Hitas
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from django.http import HttpResponse
-from .permisions import BlocklistPermission
+from .permissions import BlocklistPermission
 
 def index(request):
     return HttpResponse("DRF")
