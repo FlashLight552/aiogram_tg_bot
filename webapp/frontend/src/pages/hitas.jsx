@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";  
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 
 function Hitas({ title }) {
   const [error, setError] = useState(null);
@@ -45,22 +43,16 @@ function Hitas({ title }) {
   } else if (!isLoaded) {
     return (
         <div>
-          <SkeletonTheme>
-            <p><Skeleton count={1} /></p>
-          </SkeletonTheme>
-          <SkeletonTheme height='50px'>
-            <p><Skeleton count={1} /></p>
-          </SkeletonTheme>
-          <p><Skeleton count={40} /></p>
+
         </div>
       
     );
   } else {
     return (
       <div>
-        <div className="date">{parse(items.date) || <Skeleton />}</div>
-        <div className="title">{parse(items.title) || <Skeleton />}</div>
-        <div className="text">{parse(items.text) || <Skeleton />}</div>
+        <div className="date">{parse(items.date) }</div>
+        <div className="title">{parse(items.title) }</div>
+        <div className="text">{parse(items.text) }</div>
 
         <div>
           <Link to={"/"} className="button-tg">
