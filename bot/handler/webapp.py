@@ -23,16 +23,15 @@ async def web_app_mess(message: types.message):
     if date[0] == 'gregorian':
         date[4] = str(date[4]).replace('true','on')
         url = f'https://www.hebcal.com/converter?cfg=json&date={date[3]}-{date[2]}-{date[1]}&g2h=1&strict=1&gs={date[4]}'
-        raw_request = requests.get(url)
-        text_request = raw_request.json()
+        request = requests.get(url).json()
         for item in mounth_name.keys():
-            if item == text_request['hm']:
+            if item == request['hm']:
                 hm =  mounth_name[item]
 
         await message.answer("Григорианская дата:\n"\
-                        f"{text_request['gd']}/{text_request['gm']}/{text_request['gy']}\n"\
+                        f"{request['gd']}/{request['gm']}/{request['gy']}\n"\
                         "Еврейская дата:\n"\
-                        f"{text_request['hd']} {hm} {text_request['hy']}")
+                        f"{request['hd']} {hm} {request['hy']}")
 
     if date[0] == 'hebrew':
         url = f'https://www.hebcal.com/converter?cfg=json&hy={date[3]}&hm={date[2]}&hd={date[1]}&h2g=1&strict=1'
