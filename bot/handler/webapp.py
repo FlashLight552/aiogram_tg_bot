@@ -27,7 +27,6 @@ async def web_app_mess(message: types.message):
         for item in mounth_name.keys():
             if item == request['hm']:
                 hm =  mounth_name[item]
-
         await message.answer("Григорианская дата:\n"\
                         f"{request['gd']}/{request['gm']}/{request['gy']}\n"\
                         "Еврейская дата:\n"\
