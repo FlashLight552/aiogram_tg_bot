@@ -11,8 +11,9 @@ class BlocklistPermission(permissions.BasePermission):
         if ip_addr == allow_ip:
             return allow_ip
         
-        return bool(
-            request.method in permissions.SAFE_METHODS or
-            request.user and
-            request.user.is_authenticated
-        )
+        return request.method in permissions.SAFE_METHODS
+        # return bool(
+        #     request.method in permissions.SAFE_METHODS or
+        #     request.user and
+        #     request.user.is_authenticated
+        # )
