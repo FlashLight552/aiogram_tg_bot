@@ -12,8 +12,8 @@ function Hitas({ title }) {
   // Note: the empty deps array [] means
   // this useEffect will run once
   useEffect(() => {
-    let url = "https://api.koleltora.pp.ua/api/hitas/" + title;
-    // let url = "http://127.0.0.1:8000/api/hitas/" + title;
+    // let url = "https://api.koleltora.pp.ua/api/hitas/" + title + "view/";
+    let url = "http://127.0.0.1:8000/api/hitas/" + title + "view/";
     fetch(url)
       .then((res) => res.json())
       .then(
@@ -32,7 +32,7 @@ function Hitas({ title }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function open_source() {
+  function goByLink() {
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.openLink("https://moshiach.ru/");
@@ -62,7 +62,7 @@ function Hitas({ title }) {
 
         <div className="source">
           Источник:
-          <button onClick={open_source} className="source_btn">
+          <button onClick={goByLink} className="source_btn">
             moshiach.ru
           </button>
         </div>

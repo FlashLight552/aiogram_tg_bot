@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 
 function Gregorian() {
-  const month_name = {
+  const monthName = {
     "Январь": "01",
     "Февраль": "02",
     "Март": "03",
@@ -57,8 +57,8 @@ function Gregorian() {
         </div>
         <div className="form-floating col-auto mb-2">
           <select name="gm" id="gm" className="form-select" defaultValue={month}>
-            {Object.keys(month_name).map((name, value) => (
-                  <option key={name} value={Object.values(month_name)[value]} >
+            {Object.keys(monthName).map((name, value) => (
+                  <option key={name} value={Object.values(monthName)[value]} >
                     {name}
                   </option>
                 ))}
