@@ -31,8 +31,8 @@ if __name__ == '__main__':
 
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    # loop.create_task(scheduled_popular_video(24 * 60 * 60)) # Таймер 24 часа
-    # loop.create_task(scheduled_last_video(60)) # Таймер 1 минута
+    loop.create_task(scheduled_popular_video(24 * 60 * 60)) # Таймер 24 часа
+    loop.create_task(scheduled_last_video(60)) # Таймер 1 минута
 
     executor.start_polling(dp, skip_updates=True)
     

@@ -1,6 +1,6 @@
-token = "5183365795:AAHWNSzTh5CiK_2xzjukh0zOGbYceDZw3JA" # Тестовая площадка
+# token = "5183365795:AAHWNSzTh5CiK_2xzjukh0zOGbYceDZw3JA" # Тестовая площадка
 
-# token = "5165379339:AAHT_QmNMMfQhrurHirYd9zrTMNKG8EDwgU"
+token = "5165379339:AAHT_QmNMMfQhrurHirYd9zrTMNKG8EDwgU"
 
 yt_token = "AIzaSyCBOHZDK906DQqQNNfh68a9RG1EonYOP50"
 yt_channel_id = "UCwrWGlk7WUQGWog8GvJ2gig" #Канал колеля 
