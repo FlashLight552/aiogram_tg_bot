@@ -10,6 +10,15 @@ def index(request):
     return HttpResponse("DRF")
 
 
+fields = {
+    'chumash': "Хумаш",
+    'tehillim': "Теилим",
+    'tanya': "Тания",
+    'hayom_yoma': "Йом йом",
+    'rambam': "«Книга заповедей» РАМБАМа",
+    'moshiach': "Мошиах и Освобождение",
+    }
+
 class HitasViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Hitas to be viewed or edited.
@@ -21,7 +30,11 @@ class HitasViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=True)
     def view(self, request, pk=None):
         model = Hitas.objects.order_by('-created_date')[:1].get()
-        return Response({'title': 'Мошиах и Освобождение',
+        for item in fields.keys():
+            if item == pk:
+                title = fields[item]
+        return Response({
+                'title': title,
                 'date': model.jew_data,
                 'text': getattr(model, pk),
                 })
