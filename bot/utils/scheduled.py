@@ -28,6 +28,7 @@ async def scheduled_last_video(wait_for):
                 sub_list = db.sub_spam_allow('1')
                 for item in sub_list:
                     try:
+                        await asyncio.sleep(0.2)
                         await telegram_bot.send_message(item[0], 'Новое видео!\n'+hyperlink, parse_mode='HTML')   
                     except: 
                         db.update_sub_allow_spam(item[0],'0','0')
